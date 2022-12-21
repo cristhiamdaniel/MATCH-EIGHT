@@ -14,3 +14,13 @@ It is suggested to follow the following route for reading and understanding the 
 6. ```testApp.ipynb```: Notebook that shows how we implement the function selected in step 5, inside the final application. 4 scripts are shown where it is shown how the lines of code are reduced and a cleaner code is obtained.
 7. ```file```: External file where lists of numbers followed by the target value are stored.
 8. ```app.py```: Application main file. The object-oriented programming paradigm is used.
+
+Run mode from terminal:
+
+```bash
+python3 app.py 1,2,3,4,5 5
+```
+
+```bash
+python3 app.py <fileName>
+```
