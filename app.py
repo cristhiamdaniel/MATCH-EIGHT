@@ -1,56 +1,51 @@
 import sys
 
-def convertList(l):
-    return list(map(int, l))
-
-def findPairs(arr, sum):
-    pairs = []
-    numbers_viewed = {}
-    for num in arr:
-        missing_number = sum - num
-        if missing_number in numbers_viewed:
-            pairs.append((num, missing_number))
+class PairsFinder:
+    def __init__(self, argv):
+        self.argv = argv
+        self.run()
+    def convert_list(self, l):
+        '''
+        Objective: To convert a list of strings to a list of integers
+        :param l: List of strings
+        :return: List of integers
+        '''
+        return list(map(int, l))
+    def find_pairs(self, arr, sum):
+        '''
+        Objective: To find pairs of elements in a list whose sum is equal to a given number
+        :param arr: List of elements
+        :param sum: Sum of elements
+        :return: List of pairs
+        '''
+        pairs = [(num, sum - num) for i, num in enumerate(arr) if num != sum - num and (sum - num) in arr[:i] + arr[i + 1:] and num < sum - num]
+        return pairs
+    def read_file(self, name):
+        '''
+        Objective: To read the data from a file
+        :param name: Name of the file
+        :return: List of strings
+        '''
+        with open(name, 'r') as file:
+            lines = list(map(str.strip, file.readlines()))
+        return lines
+    def run(self):
+        '''
+        Objective: To find pairs of elements in a list whose sum is equal to a given number
+        :return: None
+        '''
+        if len(self.argv) == 3:
+            l = self.convert_list(self.argv[1].split(','))
+            result = self.find_pairs(l, int(self.argv[2]))
+            print(*result, sep='\n')
+        elif len(self.argv) == 2:
+            tex = self.read_file(self.argv[1])
+            for i in range(len(tex)):
+                l = self.convert_list(tex[i].split()[0].split(','))
+                result = self.find_pairs(l, int(tex[i].split()[1]))
+                print(*result, sep='\n')
         else:
-            numbers_viewed[num] = True
-    return pairs
-
-def readFile(name):
-    file = open(name, 'r')
-    lines = file.readlines()
-    lines = [x.strip() for x in lines]
-    file.close()
-    return lines
-
-def main():
-    if len(sys.argv) == 3:
-        l = sys.argv[1].split(',')
-        target = int(sys.argv[2])
-        l = convertList(l)
-        result = findPairs(l, target)
-
-        for x in list:
-            print(x)
-
-    elif len(sys.argv) == 2:
-
-        name = sys.argv[1]
-        tex = readFile(name)
-
-        for i in range(len(tex)):
-            lista = tex[i].split()
-            num = lista[0]
-
-            listaNum = num.split(',')
-            target = lista[1]
-            l = convertList(listaNum)
-            target = int(target)
-            result = findPairs(l, target)
-
-            for x in list:
-                print(x)
-    else:
-        print("Los datos ingresados son incorrectos")
-
+            print("the data is not correct")
 
 if __name__ == '__main__':
-    main()
+    pairs_finder = PairsFinder(sys.argv)
